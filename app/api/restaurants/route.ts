@@ -5,19 +5,25 @@ const dbPath = "C:/Users/Jack/Desktop/whatsfordinner/whatsfordinner-app/data/wfd
 
 const db = new Database(dbPath);
 
-export async function GET(request: Request) {
+export async function GET() {
 	try {
 		const rows = db.prepare(
-			`SELECT restaurant_id, 
-                        restaurant_name, 
-                        last_visit, 
-                        r.category_id, 
-                        category_name
-                    FROM restaurant as r, category as c  
-                WHERE r.category_id = c.category_id;`
+			`SELECT 
+    			r.restaurant_id,
+    			r.restaurant_name,
+    			last_visit,
+				GROUP_CONCAT(c.category_id, ', ') AS categories_id,
+    			GROUP_CONCAT(c.category_name, ', ') AS categories
+			FROM 
+    			restaurant r
+			JOIN 
+    			restaurant_category rc ON r.restaurant_id = rc.restaurant_id
+			JOIN 
+    			category c ON rc.category_id = c.category_id
+			GROUP BY 
+    			r.restaurant_id, r.restaurant_name;`
 		).all();
 
-		console.log(rows);
 		return NextResponse.json(rows);
 	} catch (error) {
 		console.error("Database error:", error);
