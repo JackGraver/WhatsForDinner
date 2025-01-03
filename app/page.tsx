@@ -4,12 +4,17 @@ import { Restaurant } from "@/types/restaurant";
 import { Category } from "@/types/category";
 import { createChoices } from "@/utils/fetchChoices";
 import Image from 'next/image';
+import { useRouter } from "next/navigation";
 
 export default function Home() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
 
+    const [selectedCategory, setSelectedCategory] = useState(0);
+
     const [error, setError] = useState<string | null>(null); // For error handling
+
+    const router = useRouter();
 
     useEffect(() => {
         const fetchRestaurants = async () => {
@@ -43,22 +48,28 @@ export default function Home() {
         fetchCategories();
     }, []);
 
+    const handleCategorySelectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCategory(event.target.value);
+        console.log("Selected Value: ", event.target.value);
+    };
+
     const handleClick = async () => {
-        createChoices([1, 2]);
+        if (selectedCategory == 0) {
+            router.push('/list');
+        } else {
+            router.push(`/list/?category=${selectedCategory}`);
+        }
+
     };
 
     return (
         <div className="bg-zinc-950 min-h-screen flex flex-col place-content-center h-48">
-            {" "}
             {/* Main div */}
             <div className="flex justify-center">
-                {" "}
                 {/* Header div */}
                 <div className="flex flex-col h-24 justify-between">
-                    {" "}
                     {/* Header div 2 */}
                     <div className="flex items-center justify-between gap-x-3">
-                        {" "}
                         {/* Title div */}
                         <h1 className="font-times text-6xl font-bold text-gray-200">
                             Whats For Dinner Tonight?
@@ -89,7 +100,7 @@ export default function Home() {
                     <label className="text-lg text-white">Any specific cuisines?</label>
                     <select
                         className="px-4 py-2 bg-gray-800 text-gray-200 font-times font-bold text-lg rounded-lg shadow-md hover:bg-gray-500 transition duration-300 ease-in-out"
-                        onChange={() => { }}
+                        onChange={handleCategorySelectChange}
                     >
                         <option value="">Select a category (None)</option>
                         {categories.map((category) => (
