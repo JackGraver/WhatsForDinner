@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import Database from "better-sqlite3";
+import path from "path";
 
-const dbPath = "C:/Users/Jack/Desktop/whatsfordinner/whatsfordinner-app/data/wfd.db"
+const dbPath = path.resolve(process.cwd(), "data", "wfd.db");
 
 const db = new Database(dbPath);
 
@@ -20,4 +21,8 @@ export async function GET() {
             { status: 500 }
         );
     }
+}
+
+export async function PUT() {
+
 }

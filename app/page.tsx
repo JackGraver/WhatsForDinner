@@ -5,14 +5,19 @@ import { Category } from "@/types/category";
 import { createChoices } from "@/utils/fetchChoices";
 import Image from 'next/image';
 import { useRouter } from "next/navigation";
+import CategoryList from "@/components/CategoryList";
 
 export default function Home() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+
     const [categories, setCategories] = useState<Category[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
 
     const [selectedCategory, setSelectedCategory] = useState(0);
 
     const [error, setError] = useState<string | null>(null); // For error handling
+
 
     const router = useRouter();
 
@@ -97,7 +102,7 @@ export default function Home() {
                 </button>
 
                 <div className="w-1/2 flex justify-end items-center space-x-4">
-                    <label className="text-lg text-white">Any specific cuisines?</label>
+                    {/* <label className="text-lg text-white">Any specific cuisines?</label>
                     <select
                         className="px-4 py-2 bg-gray-800 text-gray-200 font-times font-bold text-lg rounded-lg shadow-md hover:bg-gray-500 transition duration-300 ease-in-out"
                         onChange={handleCategorySelectChange}
@@ -108,7 +113,11 @@ export default function Home() {
                                 {category.category_name}
                             </option>
                         ))}
-                    </select>
+                    </select> */}
+                    <CategoryList
+                        selectedCategories={selectedCategories}
+                        setSelectedCategories={setSelectedCategories}
+                    />
                 </div>
             </div>
         </div>
