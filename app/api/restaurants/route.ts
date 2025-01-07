@@ -13,6 +13,7 @@ export async function GET() {
     			r.restaurant_id,
     			r.restaurant_name,
     			last_visit,
+				rating,
 				GROUP_CONCAT(c.category_id, ', ') AS categories_id,
     			GROUP_CONCAT(c.category_name, ', ') AS categories
 			FROM 

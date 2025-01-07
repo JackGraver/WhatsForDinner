@@ -41,6 +41,7 @@ export default function CategoryList({
         if (!isAdding) {
             setSelectedCategories((prev) => [...prev, ""]); // Add a placeholder for the new category
             setIsAdding(true); // Enable the input field for the new category
+            console.log("s: " + selectedCategories);
         }
     };
 
@@ -81,7 +82,7 @@ export default function CategoryList({
                                     <div className="w-40 absolute top-full left-0 bg-gray-700 shadow-md rounded-md z-10 max-h-40 overflow-y-auto">
                                         {categories
                                             .filter((cat) =>
-                                                cat.category_name.toLowerCase().includes(searchValue.toLowerCase())
+                                                cat.category_name.toLowerCase().includes(searchValue.toLowerCase()) && !selectedCategories.includes(cat.category_name)
                                             )
                                             .map((filteredCategory) => (
                                                 <div

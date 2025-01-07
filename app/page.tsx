@@ -59,10 +59,12 @@ export default function Home() {
     };
 
     const handleClick = async () => {
-        if (selectedCategory == 0) {
+        if (selectedCategories.length == 0) {
             router.push('/list');
         } else {
-            router.push(`/list/?category=${selectedCategory}`);
+            console.log("selected: " + selectedCategories);
+            const queryString = new URLSearchParams({ category: JSON.stringify(selectedCategories) }).toString();
+            router.push(`/list?${queryString}`);
         }
 
     };

@@ -13,15 +13,17 @@
 
 
 SELECT 
-    r.restaurant_id,
-    r.restaurant_name,
-    last_visit,
-    GROUP_CONCAT(c.category_name, ', ') AS categories
-FROM 
-    restaurant r
-JOIN 
-    restaurant_category rc ON r.restaurant_id = rc.restaurant_id
-JOIN 
-    category c ON rc.category_id = c.category_id
-GROUP BY 
-    r.restaurant_id, r.restaurant_name;
+    			r.restaurant_id,
+    			r.restaurant_name,
+    			last_visit,
+				rating,
+				GROUP_CONCAT(c.category_id, ', ') AS categories_id,
+    			GROUP_CONCAT(c.category_name, ', ') AS categories
+			FROM 
+    			restaurant r
+			JOIN 
+    			restaurant_category rc ON r.restaurant_id = rc.restaurant_id
+			JOIN 
+    			category c ON rc.category_id = c.category_id
+			GROUP BY 
+    			r.restaurant_id, r.restaurant_name;
