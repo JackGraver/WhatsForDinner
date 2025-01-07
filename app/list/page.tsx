@@ -1,9 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Restaurant, DBRestaurant } from "@/types/restaurant";
-import { Category } from "@/types/category";
 import { useSearchParams } from "next/navigation";
-import RestaurantBlock from "@/components/RestaurantBlock";
+import RestaurantCard from "@/components/RestaurantCard";
 
 export default function List() {
     const searchParams = useSearchParams();
@@ -31,12 +30,10 @@ export default function List() {
                     categories: item.categories.split(', ')
                 }));
 
-                console.log("d - ", data);
                 // Filter restaurants based on categories from the query parameter
                 const filteredData = categories.length
                     ? data.filter((r: Restaurant) => r.categories.some((c) => categories.includes(c)))
                     : data;
-                console.log("f - ", filteredData)
 
                 setRestaurants(filteredData); // Store filtered restaurants
             } catch (err) {
@@ -89,7 +86,7 @@ export default function List() {
                     <h2 className="text-gray-200">In the same category</h2>
                     {similarCat.map((r) => (
                         <div key={r.restaurant_id}>
-                            <RestaurantBlock
+                            <RestaurantCard
                                 restaurant={r}
                             />
                         </div>
@@ -102,7 +99,7 @@ export default function List() {
                     <h2 className="text-gray-200">Other Suitable Options</h2>
                     {mostLikely.slice(0, 5).map((r) => ( // Limit to top 5 most likely
                         <div key={r.restaurant_id}>
-                            <RestaurantBlock
+                            <RestaurantCard
                                 restaurant={r}
                             />
                         </div>
@@ -114,7 +111,7 @@ export default function List() {
                     <h2 className="text-gray-200">Been a while since you've been here</h2>
                     {leastRecent.map((r) => (
                         <div key={r.restaurant_id} >
-                            <RestaurantBlock
+                            <RestaurantCard
                                 restaurant={r}
                             />
                         </div>

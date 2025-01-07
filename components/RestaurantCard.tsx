@@ -1,6 +1,6 @@
 import { Restaurant } from "@/types/restaurant";
 
-export default function RestaurantBlock({
+export default function RestaurantCard({
     restaurant
 }: {
     restaurant: Restaurant;

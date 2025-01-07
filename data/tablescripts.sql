@@ -16,8 +16,8 @@ DROP TABLE restaurant_category;
 CREATE TABLE restaurant_category (
     category_id INTEGER,
     restaurant_id INTEGER,
-    FOREIGN KEY (category_id) REFERENCES category(category_id),
-    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
+    FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE,
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id) ON DELETE CASCADE
 );
 
 -- INSERT INTO category (category_name)
