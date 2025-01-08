@@ -54,7 +54,7 @@ export async function PUT(request: Request) {
                 { status: 404 }
             );
         }
-        return NextResponse.json({ success: true, strat: updatedCategory });
+        return NextResponse.json({ success: true, category: updatedCategory });
 
     } catch (error) {
         console.error("Error during update:", error);
